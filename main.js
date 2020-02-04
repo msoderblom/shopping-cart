@@ -7,7 +7,13 @@ $(document).ready(function() {
   let cartList = [];
   let p_container = $("#product_container");
   let shoppingCart = $("#shoppingCart");
-  console.log(shoppingCart);
+
+  console.log(localStorage.cartList);
+
+  if (typeof localStorage.cartList != "undefined") {
+    cartList = JSON.parse(localStorage.getItem("cartList"));
+    drawCart();
+  }
 
   fetch("products.json")
     .then(resp => resp.json())
@@ -63,7 +69,17 @@ $(document).ready(function() {
       if (product.id == productId) {
         cartList.push(product);
         drawCart();
-        addToLocalStorage();
+        updateLocalStorage();
+      }
+    });
+  }
+  function removeFromCart(event) {
+    let productId = event.currentTarget.dataset.id;
+    cartList.forEach(product => {
+      if (product.id == productId) {
+        cartList.splice(cartList.indexOf(product), 1);
+        drawCart();
+        updateLocalStorage();
       }
     });
   }
@@ -79,6 +95,7 @@ $(document).ready(function() {
     </div>
     <div>
         <div class="uk-card-body">
+        <span data-id="${product.id}" class="deleteBtn" uk-icon="icon: trash; ratio: 2"></span>
             <h3 class="uk-card-title">${product.name}</h3>
             <h2>${product.price} kr</h2>
         </div>
@@ -88,14 +105,13 @@ $(document).ready(function() {
 
       shoppingCart.append(cartCard);
     });
+    $(".deleteBtn").click(removeFromCart);
     console.log(cartList);
   }
 
-  function addToLocalStorage() {
-    let myArr = ["a", "b", "c"];
-    localStorage.setItem("myDemo", JSON.stringify(myArr));
+  function updateLocalStorage() {
+    localStorage.setItem("cartList", JSON.stringify(cartList));
     console.table(localStorage);
-    let myNewArr = JSON.parse(localStorage.getItem("myDemo"));
   }
 });
 
