@@ -3,13 +3,17 @@
 //Funktion som ritar ut alla produkter från en från json-filen i sina kort
 
 $(document).ready(function() {
+  let productList = [];
+  let cartList = [];
   let p_container = $("#product_container");
+  let shoppingCart = $("#shoppingCart");
+  console.log(shoppingCart);
 
   fetch("products.json")
     .then(resp => resp.json())
     .then(productsObj => {
-      const products = productsObj.products;
-      products.forEach(product => {
+      productList = productsObj.products;
+      productList.forEach(product => {
         console.log(product.name);
         let product_card = `
         <div>
@@ -42,7 +46,7 @@ $(document).ready(function() {
               </select>
             </div>
           </div>
-          <button class="uk-button uk-button-default addBtn">Add To Cart</button>
+          <button data-product-id="${product.id}"class="uk-button uk-button-default addBtn">Add To Cart</button>
         </div>
       </div>
       </div>
@@ -50,8 +54,49 @@ $(document).ready(function() {
         p_container.append(product_card);
       });
 
-      $(".addBtn").click(function() {});
+      $(".addBtn").click(addToCart);
     });
+
+  function addToCart(event) {
+    let productId = event.currentTarget.dataset.productId;
+    productList.forEach(product => {
+      if (product.id == productId) {
+        cartList.push(product);
+        drawCart();
+        addToLocalStorage();
+      }
+    });
+  }
+  function drawCart() {
+    shoppingCart[0].innerHTML = "";
+    cartList.forEach(product => {
+      let cartCard = `
+  
+  <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+    <div class="uk-card-media-left uk-cover-container">
+        <img src="${product.img}" alt="" uk-cover>
+        <canvas width="600" height="200"></canvas>
+    </div>
+    <div>
+        <div class="uk-card-body">
+            <h3 class="uk-card-title">${product.name}</h3>
+            <h2>${product.price} kr</h2>
+        </div>
+    </div>
+  </div>
+  `;
+
+      shoppingCart.append(cartCard);
+    });
+    console.log(cartList);
+  }
+
+  function addToLocalStorage() {
+    let myArr = ["a", "b", "c"];
+    localStorage.setItem("myDemo", JSON.stringify(myArr));
+    console.table(localStorage);
+    let myNewArr = JSON.parse(localStorage.getItem("myDemo"));
+  }
 });
 
 //funtion som lägger till produkter i varukorgen
