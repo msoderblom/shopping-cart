@@ -73,16 +73,24 @@ $(document).ready(function() {
 
     productList.forEach(product => {
       if (product.id == productId) {
-        cartList.push(product);
-        cartList.forEach(product => {
-          if (product.id == productId) {
-            product.qty = qty;
-            console.log("produktens gty-egenskap" + product.qty);
+        // console.log(cartList);
+        // console.log(productId);
 
-            product.price = product.price * product.qty;
-            console.log("produktens pris" + product.price);
-          }
-        });
+        if (checkDuplicate(product) === false) {
+          cartList.push(product);
+          cartList.forEach(product => {
+            if (product.id == productId) {
+              product.qty = qty;
+
+              // console.log("produktens gty-egenskap: " + product.qty);
+
+              product.price = product.price * product.qty;
+              // console.log("produktens pris: " + product.price);
+            }
+          });
+        } else {
+          console.log("finns redan");
+        }
 
         drawCart();
         updateLocalStorage();
@@ -152,6 +160,23 @@ $(document).ready(function() {
     cartList = [];
     drawCart();
     totalAmount();
+  }
+
+  function checkDuplicate(product) {
+    if (cartList.includes(product)) {
+      return true;
+    } else {
+      return false;
+    }
+
+    //   cartList.forEach(product => {
+    //     console.log(product.id);
+
+    //     if (product.id == id) {
+    //       return true;
+    //     }
+    //   });
+    //   return false;
   }
 });
 
