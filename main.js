@@ -106,6 +106,7 @@ $(document).ready(function() {
         cartList.splice(cartList.indexOf(product), 1);
         drawCart();
         updateLocalStorage();
+        totalAmount();
       }
     });
   }
