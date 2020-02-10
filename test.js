@@ -11,19 +11,10 @@ $(document).ready(function() {
   $("#emptyCartBtn").click(emptyCart);
 
   const cartListText = localStorage.getItem("cartList");
-
   if (cartListText) {
-    cartList = JSON.parse(cartListText);
+    cartList = JSON.parse(localStorage.getItem("cartList"));
     drawCart();
   }
-
-  // if (
-  //   typeof localStorage.cartList != "undefined" &&
-  //   localStorage.cartList.length != 0
-  // ) {
-  //   cartList = JSON.parse(localStorage.getItem("cartList"));
-  //   drawCart();
-  // }
 
   totalAmount();
 
@@ -76,6 +67,7 @@ $(document).ready(function() {
     // console.log(qtyInput.dataset.inputid);
     console.log("värdet från input: " + qtyInput.value);
 
+    console.log(productId);
     if (!checkDuplicate(productId)) {
       console.log("Finns inte redan");
       const foundProduct = productList.find(p => p.id === Number(productId));
@@ -93,40 +85,9 @@ $(document).ready(function() {
       );
     }
 
-    //   productList.forEach(product => {
-    //     if (product.id == productId) {
-    //       // console.log(cartList);
-    //       // console.log(productId);
-
-    //       if (checkDuplicate(productId) === false) {
-    //         cartList.push(product);
-    //         cartList.forEach(p => {
-    //           if (p.id == productId) {
-    //             p.qty = qty;
-
-    //             // console.log("produktens gty-egenskap: " + product.qty);
-
-    //             p.totalPrice = p.unitPrice * p.qty;
-    //             // console.log("produktens pris: " + product.price);
-
-    //             console.log("finns inte redan");
-    //           }
-    //         });
-    //       } else {
-    //         console.log("finns redan");
-    //         UIkit.notification(
-    //           "<span ></span> This product is already in your cart. Please change the quantity in the cart."
-    //         );
-    //       }
-
-    //       drawCart();
-
-    //       updateLocalStorage();
-    //     }
-    //   });
-
-    //   totalAmount();
+    totalAmount();
   }
+
   function removeFromCart(event) {
     let productId = event.currentTarget.dataset.id;
     cartList.forEach(product => {
@@ -138,11 +99,12 @@ $(document).ready(function() {
       }
     });
   }
-  //
+
   function drawCart() {
     cartCounter();
     shoppingCart[0].innerHTML = "";
     cartList.forEach(product => {
+      console.log(product);
       let cartCard = `
       
       <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
@@ -192,21 +154,10 @@ $(document).ready(function() {
     cartList = [];
     drawCart();
     totalAmount();
-
-    // Nollställer alla inputs för antal produkter
-    let inputArr = $.makeArray($(".qtyInput"));
-    inputArr.forEach(input => {
-      input.value = 1;
-    });
   }
 
   function checkDuplicate(productId) {
-    console.log(cartList);
-    console.log(productId);
-
-    const foundProduct = cartList.find(p => {
-      return p.id === Number(productId);
-    });
+    const foundProduct = cartList.find(p => p.id === Number(productId));
     console.log(foundProduct);
 
     if (foundProduct) {
@@ -217,15 +168,6 @@ $(document).ready(function() {
       console.log("duplicate= " + false);
       return false;
     }
-
-    // if (cartList.includes(product)) {
-    //   console.log("duplicate= " + true);
-
-    //   return true;
-    // } else {
-    //   console.log("duplicate= " + false);
-    //   return false;
-    // }
   }
 
   function changeQty(event) {
