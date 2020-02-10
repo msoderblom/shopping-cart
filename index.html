@@ -17,56 +17,55 @@
       * {
         color: black !important;
       }
+      .cart-counter {
+        display: inline-block;
+        width: 20px;
+        opacity: 0;
+        height: 20px;
+        background: #ddd;
+        text-align: center;
+        border-radius: 50%;
+        margin-left: 10px;
+      }
     </style>
   </head>
   <body>
     <header>
-      <nav class="uk-navbar-container uk-margin" uk-navbar>
-        <div class="uk-navbar-center">
-          <div class="uk-navbar-center-left">
-            <div>
-              <ul class="uk-navbar-nav">
-                <li class="uk-active"><a href="#">Active</a></li>
-                <li>
-                  <a href="#">Parent</a>
-                  <div class="uk-navbar-dropdown">
-                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                      <li class="uk-active"><a href="#">Active</a></li>
-                      <li><a href="#">Item</a></li>
-                      <li><a href="#">Item</a></li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <a class="uk-navbar-item uk-logo" href="#">Logo</a>
-          <div class="uk-navbar-center-right">
-            <div>
-              <ul class="uk-navbar-nav">
-                <i class="fas fa-shopping-cart"></i>
-              </ul>
-            </div>
-          </div>
+      <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-left">
+          <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="#">Active</a></li>
+            <li>
+              <a href="#">Parent</a>
+              <div class="uk-navbar-dropdown">
+                <ul class="uk-nav uk-navbar-dropdown-nav">
+                  <li class="uk-active"><a href="#">Active</a></li>
+                  <li><a href="#">Item</a></li>
+                  <li class="uk-nav-header">Header</li>
+                  <li><a href="#">Item</a></li>
+                  <li><a href="#">Item</a></li>
+                  <li class="uk-nav-divider"></li>
+                  <li><a href="#">Item</a></li>
+                </ul>
+              </div>
+            </li>
+            <li><a href="#">Item</a></li>
+          </ul>
+        </div>
+        <div class="uk-navbar-right">
+          <ul class="uk-navbar-nav">
+            <li>
+              <a
+                href=""
+                uk-toggle="target: #offcanvas-flip"
+                uk-icon="icon: cart"
+              ></a>
+              <span class="cart-counter"></span>
+            </li>
+          </ul>
         </div>
       </nav>
-      <!-- <i></i>
-  
-        <ul>
-          <li>Hem</li>
-          <li>Kontakt</li>
-          <li></li>
-        </ul>
-        <i class="fas fa-shopping-cart"></i> -->
     </header>
-    <a href="" uk-toggle="target: #offcanvas-flip" uk-icon="icon: cart"></a>
-    <button
-      class="uk-button uk-button-default"
-      type="button"
-      uk-toggle="target: #offcanvas-flip"
-    >
-      Open
-    </button>
 
     <div class="uk-container uk-container-large">
       <div

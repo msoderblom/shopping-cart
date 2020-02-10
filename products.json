@@ -4,7 +4,6 @@
       "id": 1,
       "name": "Product 1",
       "unitPrice": 50,
-
       "totalPrice": 50,
       "qty": 1,
       "info": "string",

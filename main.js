@@ -47,7 +47,7 @@ $(document).ready(function() {
             <div class="uk-form-controls">
        
               <div class="uk-margin">
-                <input data-inputid="${product.id}" class="uk-number" min="1" max="10"type="number" value="1">
+                <input data-inputid="${product.id}" class="uk-number qtyInput" min="1" max="10"type="number" value="1">
               </div>
               
             </div>
@@ -92,9 +92,13 @@ $(document).ready(function() {
           });
         } else {
           console.log("finns redan");
+          UIkit.notification(
+            "<span ></span> This product is already in your cart. Please change the quantity in the cart."
+          );
         }
 
         drawCart();
+
         updateLocalStorage();
       }
     });
@@ -114,27 +118,28 @@ $(document).ready(function() {
   }
   //
   function drawCart() {
+    cartCounter();
     shoppingCart[0].innerHTML = "";
     cartList.forEach(product => {
       let cartCard = `
       
-  <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
-    <div class="uk-card-media-left uk-cover-container">
-    <canvas width="150" height="150"></canvas>
-        <img src="${product.img}" alt="" uk-cover>
-        
-    </div>
-    <div>
-        <div class="uk-card-body">
-        <span data-id="${product.id}" class="deleteBtn" uk-icon="icon: trash; ratio: 2"></span>
-            <h3 class="uk-card-title">${product.name}</h3>
-            <h2>Qty: </h2>
-            <input data-pid="${product.id}" class="uk-number cartQty" min="1" max="10" type="number" value="${product.qty}">
-            <h2>${product.totalPrice} kr</h2>
+      <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+        <div class="uk-card-media-left uk-cover-container">
+        <canvas width="150" height="150"></canvas>
+            <img src="${product.img}" alt="" uk-cover>
+            
         </div>
-    </div>
-  </div>
-  `;
+        <div>
+            <div class="uk-card-body">
+            <span data-id="${product.id}" class="deleteBtn" uk-icon="icon: trash; ratio: 2"></span>
+                <h3 class="uk-card-title">${product.name}</h3>
+                <h2>Qty: </h2>
+                <input data-pid="${product.id}" class="uk-number cartQty" min="1" max="10" type="number" value="${product.qty}">
+                <h2>${product.totalPrice} kr</h2>
+            </div>
+        </div>
+      </div>
+      `;
 
       shoppingCart.append(cartCard);
     });
@@ -166,22 +171,15 @@ $(document).ready(function() {
     drawCart();
     totalAmount();
   }
-
   function checkDuplicate(product) {
     if (cartList.includes(product)) {
+      console.log("duplicate= " + true);
+
       return true;
     } else {
+      console.log("duplicate= " + false);
       return false;
     }
-
-    //   cartList.forEach(product => {
-    //     console.log(product.id);
-
-    //     if (product.id == id) {
-    //       return true;
-    //     }
-    //   });
-    //   return false;
   }
 
   function changeQty(event) {
@@ -199,6 +197,26 @@ $(document).ready(function() {
         drawCart();
       }
     });
+  }
+
+  function cartCounter(params) {
+    let counts = 0;
+
+    cartList.forEach(product => {
+      counts += product.qty;
+    });
+    $(".cart-counter").animate(
+      {
+        //show span with number
+        opacity: 1
+      },
+      300,
+      function() {
+        //write number of counts into span
+        $(this).text(counts);
+      }
+    );
+    console.log("cart count: " + counts);
   }
 });
 

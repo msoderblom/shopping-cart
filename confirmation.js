@@ -3,7 +3,7 @@ $("document").ready(function() {
   let tFoot = $("#tFoot");
 
   let orderList = JSON.parse(localStorage.cartList);
-  console.log(orderList);
+  localStorage.cartList = "";
 
   let output;
   orderList.forEach(product => {
