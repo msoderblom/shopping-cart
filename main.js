@@ -37,7 +37,7 @@ $(document).ready(function() {
         </div>
         <div class="uk-card-body" id="card_body_container">
           <h3 class="uk-card-title" id="title">${product.name}</h3>
-          <h2>${product.price} kr</h2>
+          <h2>${product.unitPrice} kr</h2>
           <p id="info">
             ${product.info}
 
@@ -66,7 +66,7 @@ $(document).ready(function() {
   function addToCart(event) {
     let productId = event.currentTarget.dataset.productId;
     let qtyInput = $(`[data-inputid= '${productId}']`)[0];
-    let qty = qtyInput.value;
+    let qty = parseInt(qtyInput.value);
 
     // console.log(qtyInput.dataset.inputid);
     console.log("värdet från input: " + qtyInput.value);
@@ -78,14 +78,16 @@ $(document).ready(function() {
 
         if (checkDuplicate(product) === false) {
           cartList.push(product);
-          cartList.forEach(product => {
-            if (product.id == productId) {
-              product.qty = qty;
+          cartList.forEach(p => {
+            if (p.id == productId) {
+              p.qty = qty;
 
               // console.log("produktens gty-egenskap: " + product.qty);
 
-              product.price = product.price * product.qty;
+              p.totalPrice = p.unitPrice * p.qty;
               // console.log("produktens pris: " + product.price);
+
+              console.log("finns inte redan");
             }
           });
         } else {
@@ -126,8 +128,9 @@ $(document).ready(function() {
         <div class="uk-card-body">
         <span data-id="${product.id}" class="deleteBtn" uk-icon="icon: trash; ratio: 2"></span>
             <h3 class="uk-card-title">${product.name}</h3>
-            <h2>Qty: ${product.qty}</h2>
-            <h2>${product.price} kr</h2>
+            <h2>Qty: </h2>
+            <input data-pid="${product.id}" class="uk-number cartQty" min="1" max="10" type="number" value="${product.qty}">
+            <h2>${product.totalPrice} kr</h2>
         </div>
     </div>
   </div>
@@ -136,6 +139,7 @@ $(document).ready(function() {
       shoppingCart.append(cartCard);
     });
     $(".deleteBtn").click(removeFromCart);
+    $(".cartQty").change(changeQty);
     // console.log(cartList);
   }
 
@@ -144,7 +148,7 @@ $(document).ready(function() {
 
     if (cartList.length != 0) {
       cartList.forEach(product => {
-        totalAmount += product.price;
+        totalAmount += product.totalPrice;
       });
     }
 
@@ -178,6 +182,23 @@ $(document).ready(function() {
     //     }
     //   });
     //   return false;
+  }
+
+  function changeQty(event) {
+    let cartProductId = event.currentTarget.dataset.pid;
+    let qty = parseInt(event.currentTarget.value);
+
+    cartList.forEach(product => {
+      if (product.id == cartProductId) {
+        product.qty = qty;
+
+        product.totalPrice = product.unitPrice * product.qty;
+
+        totalAmount();
+        updateLocalStorage();
+        drawCart();
+      }
+    });
   }
 });
 

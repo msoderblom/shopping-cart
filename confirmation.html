@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/css/uikit.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/e939cd9756.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      * {
+        color: black !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="uk-navbar-container uk-margin" uk-navbar>
+        <div class="uk-navbar-center">
+          <div class="uk-navbar-center-left">
+            <div>
+              <ul class="uk-navbar-nav">
+                <li class="uk-active"><a href="#">Active</a></li>
+                <li>
+                  <a href="#">Parent</a>
+                  <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                      <li class="uk-active"><a href="#">Active</a></li>
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Item</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <a class="uk-navbar-item uk-logo" href="#">Logo</a>
+          <div class="uk-navbar-center-right">
+            <div>
+              <ul class="uk-navbar-nav">
+                <i class="fas fa-shopping-cart"></i>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!-- <i></i>
+  
+        <ul>
+          <li>Hem</li>
+          <li>Kontakt</li>
+          <li></li>
+        </ul>
+        <i class="fas fa-shopping-cart"></i> -->
+    </header>
+
+    <table class="uk-table uk-table-divider">
+      <caption>
+        Your Order
+      </caption>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th></th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Total Price</th>
+        </tr>
+      </thead>
+      <tbody id="tBody"></tbody>
+      <tfoot id="tFoot"></tfoot>
+    </table>
+
+    <footer>
+      <p>JSON-fil: <a href="products.json">products.json</a></p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit-icons.min.js"></script>
+    <script src="confirmation.js"></script>
+  </body>
+</html>
