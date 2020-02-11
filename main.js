@@ -1,7 +1,3 @@
-//funktion som hämtar data från local storage om det finns någon
-
-//Funktion som ritar ut alla produkter från en från json-filen i sina kort
-
 $(document).ready(function() {
   let productList = [];
   let cartList = [];
@@ -12,18 +8,11 @@ $(document).ready(function() {
 
   const cartListText = localStorage.getItem("cartList");
 
+  //funktion som hämtar data från local storage om det finns någon
   if (cartListText) {
     cartList = JSON.parse(cartListText);
     drawCart();
   }
-
-  // if (
-  //   typeof localStorage.cartList != "undefined" &&
-  //   localStorage.cartList.length != 0
-  // ) {
-  //   cartList = JSON.parse(localStorage.getItem("cartList"));
-  //   drawCart();
-  // }
 
   totalAmount();
 
@@ -31,9 +20,13 @@ $(document).ready(function() {
     .then(resp => resp.json())
     .then(productsObj => {
       productList = productsObj.products;
-      productList.forEach(product => {
-        // console.log(product.name);
-        let product_card = `
+      drawProductCards();
+    });
+
+  //Funktion som ritar ut alla produkter från en array i sina kort
+  function drawProductCards() {
+    productList.forEach(product => {
+      let product_card = `
         <div>
           <div class="uk-card uk-card-default" id="card">
 
@@ -45,14 +38,11 @@ $(document).ready(function() {
             <h2>${product.unitPrice} kr</h2>
             <p id="info">
               ${product.info}
-
             </p>
             <div class="uk-margin">
-        
               <div class="uk-form-controls">
               <label class="uk-form-label" for="qty">Quantity: </label>
                   <input id="qty" data-inputid="${product.id}" class="uk-number qtyInput" min="1" max="10"type="number" value="1">
-                
               </div>
             </div>
             <button data-product-id="${product.id}"class="uk-button uk-button-default addBtn">Add To Cart</button>
@@ -60,11 +50,10 @@ $(document).ready(function() {
         </div>
       </div>
         `;
-        p_container.append(product_card);
-      });
-
-      $(".addBtn").click(addToCart);
+      p_container.append(product_card);
     });
+    $(".addBtn").click(addToCart);
+  }
 
   function addToCart(event) {
     let productId = event.currentTarget.dataset.productId;
@@ -90,40 +79,6 @@ $(document).ready(function() {
         "<span ></span> This product is already in your cart. Please change the quantity in the cart."
       );
     }
-
-    //   productList.forEach(product => {
-    //     if (product.id == productId) {
-    //       // console.log(cartList);
-    //       // console.log(productId);
-
-    //       if (checkDuplicate(productId) === false) {
-    //         cartList.push(product);
-    //         cartList.forEach(p => {
-    //           if (p.id == productId) {
-    //             p.qty = qty;
-
-    //             // console.log("produktens gty-egenskap: " + product.qty);
-
-    //             p.totalPrice = p.unitPrice * p.qty;
-    //             // console.log("produktens pris: " + product.price);
-
-    //             console.log("finns inte redan");
-    //           }
-    //         });
-    //       } else {
-    //         console.log("finns redan");
-    //         UIkit.notification(
-    //           "<span ></span> This product is already in your cart. Please change the quantity in the cart."
-    //         );
-    //       }
-
-    //       drawCart();
-
-    //       updateLocalStorage();
-    //     }
-    //   });
-
-    //   totalAmount();
   }
   function removeFromCart(event) {
     let productId = event.currentTarget.dataset.id;
@@ -135,7 +90,6 @@ $(document).ready(function() {
       }
     });
   }
-  //
 
   function drawCart() {
     cartCounter();
@@ -144,25 +98,22 @@ $(document).ready(function() {
     cartList.forEach(product => {
       let cartCard = `
       <div class="card-product">
-      <img src="${product.img}" />
-      <div class="card-product-infos">
-        <h2>${product.name}</h2>
-      
-        <span data-id="${product.id}" class="deleteBtn" uk-icon="icon: trash; ratio: 0.8"></span>
-        <label>Qty: </label>
-        <input data-pid="${product.id}" class="uk-number cartQty" min="1" max="10" type="number" value="${product.qty}">
-        <h2>${product.totalPrice} kr</h2>
+        <img src="${product.img}" />
+        <div class="card-product-infos">
+          <h2>${product.name}</h2>
+        
+          <span data-id="${product.id}" class="deleteBtn" uk-icon="icon: trash; ratio: 0.8"></span>
+          <label>Qty: </label>
+          <input data-pid="${product.id}" class="uk-number cartQty" min="1" max="10" type="number" value="${product.qty}">
+          <h2>${product.totalPrice} kr</h2>
         </div>
-    </div>
-      
-
+      </div>
       `;
 
       shoppingCart.append(cartCard);
     });
     $(".deleteBtn").click(removeFromCart);
     $(".cartQty").change(changeQty);
-    // console.log(cartList);
   }
 
   function totalAmount() {
@@ -179,7 +130,6 @@ $(document).ready(function() {
 
   function updateLocalStorage() {
     localStorage.setItem("cartList", JSON.stringify(cartList));
-    // console.table(localStorage);
   }
 
   function emptyCart() {
@@ -211,15 +161,6 @@ $(document).ready(function() {
       console.log("duplicate= " + false);
       return false;
     }
-
-    // if (cartList.includes(product)) {
-    //   console.log("duplicate= " + true);
-
-    //   return true;
-    // } else {
-    //   console.log("duplicate= " + false);
-    //   return false;
-    // }
   }
 
   function changeQty(event) {
@@ -246,18 +187,15 @@ $(document).ready(function() {
     });
     $(".cart-counter").animate(
       {
-        //show span with number
+        //visar span med nummer
         opacity: 1
       },
       300,
       function() {
-        //write number of counts into span
+        //skriver in antal produkter
         $(this).text(counts);
       }
     );
     console.log("cart count: " + counts);
   }
 });
-
-//funtion som lägger till produkter i varukorgen
-//eventlistener på alla knappar i korten
