@@ -58,8 +58,9 @@
   right: 10px;
 }
 #shoppingCart {
-  max-height: 70vh;
+  max-height: 60vh;
   overflow-y: scroll;
+  margin-bottom: 20px;
 }
 .uk-offcanvas-bar {
   top: 80px;

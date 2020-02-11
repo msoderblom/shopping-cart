@@ -76,11 +76,11 @@ $(document).ready(function() {
 
     if (!checkDuplicate(productId)) {
       console.log("Finns inte redan");
-      const foundProduct = productList.find(p => p.id === Number(productId));
-      foundProduct.qty = qty;
-      foundProduct.totalPrice = foundProduct.unitPrice * foundProduct.qty;
+      const productToAdd = productList.find(p => p.id === Number(productId));
+      productToAdd.qty = qty;
+      productToAdd.totalPrice = productToAdd.unitPrice * productToAdd.qty;
 
-      cartList.push(foundProduct);
+      cartList.push(productToAdd);
 
       drawCart();
       updateLocalStorage();
