@@ -7,9 +7,11 @@ $("document").ready(function() {
 
   let output;
   orderList.forEach(product => {
+    console.log(product.img);
+
     output += ` 
     <tr>
-      <td><img src="${product.img} alt="${product.name}"></td>
+      <td><img src="${product.img}" alt="${product.name}"></td>
       <td>${product.name}</td>
       <td>${product.unitPrice}</td>
       <td>${product.qty}</td>

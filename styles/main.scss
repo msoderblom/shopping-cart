@@ -1,0 +1,19 @@
+// 1. Your custom variables and variable overwrites.
+
+$offcanvas-bar-width: 500px;
+$offcanvas-bar-width-m: 33vw;
+$card-title-font-size: 20px;
+$height-small-height: 100px;
+$global-medium-margin: 5px;
+
+// 2. Import default variables and available mixins.
+@import "../uikit-3.3.1/src/scss/variables-theme.scss";
+@import "../uikit-3.3.1/src/scss/mixins-theme.scss";
+
+// 3. Your custom mixin overwrites.
+@mixin hook-card() {
+  color: #000;
+}
+
+// 4. Import UIkit.
+@import "../uikit-3.3.1/src/scss/uikit-theme.scss";

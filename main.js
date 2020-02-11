@@ -35,31 +35,29 @@ $(document).ready(function() {
         // console.log(product.name);
         let product_card = `
         <div>
-        <div class="uk-card uk-card-default" id="card">
+          <div class="uk-card uk-card-default" id="card">
 
-        <div class="uk-card-media-top" id="img_container">
-          <img src="${product.img}" alt="" id="img"/>
-        </div>
-        <div class="uk-card-body" id="card_body_container">
-          <h3 class="uk-card-title" id="title">${product.name}</h3>
-          <h2>${product.unitPrice} kr</h2>
-          <p id="info">
-            ${product.info}
-
-          </p>
-          <div class="uk-margin">
-           <label class="uk-form-label" for="form-stacked-select">Quantity</label>
-            <div class="uk-form-controls">
-       
-              <div class="uk-margin">
-                <input data-inputid="${product.id}" class="uk-number qtyInput" min="1" max="10"type="number" value="1">
-              </div>
-              
-            </div>
+          <div class="uk-card-media-top" id="img_container">
+            <img src="${product.img}" alt="" id="img"/>
           </div>
-          <button data-product-id="${product.id}"class="uk-button uk-button-default addBtn">Add To Cart</button>
+          <div class="uk-card-body" id="card_body_container">
+            <h3 class="uk-card-title" id="title">${product.name}</h3>
+            <h2>${product.unitPrice} kr</h2>
+            <p id="info">
+              ${product.info}
+
+            </p>
+            <div class="uk-margin">
+        
+              <div class="uk-form-controls">
+              <label class="uk-form-label" for="qty">Quantity: </label>
+                  <input id="qty" data-inputid="${product.id}" class="uk-number qtyInput" min="1" max="10"type="number" value="1">
+                
+              </div>
+            </div>
+            <button data-product-id="${product.id}"class="uk-button uk-button-default addBtn">Add To Cart</button>
+          </div>
         </div>
-      </div>
       </div>
         `;
         p_container.append(product_card);
@@ -134,33 +132,30 @@ $(document).ready(function() {
         cartList.splice(cartList.indexOf(product), 1);
         drawCart();
         updateLocalStorage();
-        totalAmount();
       }
     });
   }
   //
+
   function drawCart() {
     cartCounter();
+    totalAmount();
     shoppingCart[0].innerHTML = "";
     cartList.forEach(product => {
       let cartCard = `
+      <div class="card-product">
+      <img src="${product.img}" />
+      <div class="card-product-infos">
+        <h2>${product.name}</h2>
       
-      <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
-        <div class="uk-card-media-left uk-cover-container">
-        <canvas width="150" height="150"></canvas>
-            <img src="${product.img}" alt="" uk-cover>
-            
+        <span data-id="${product.id}" class="deleteBtn" uk-icon="icon: trash; ratio: 0.8"></span>
+        <label>Qty: </label>
+        <input data-pid="${product.id}" class="uk-number cartQty" min="1" max="10" type="number" value="${product.qty}">
+        <h2>${product.totalPrice} kr</h2>
         </div>
-        <div>
-            <div class="uk-card-body">
-            <span data-id="${product.id}" class="deleteBtn" uk-icon="icon: trash; ratio: 2"></span>
-                <h3 class="uk-card-title">${product.name}</h3>
-                <h2>Qty: </h2>
-                <input data-pid="${product.id}" class="uk-number cartQty" min="1" max="10" type="number" value="${product.qty}">
-                <h2>${product.totalPrice} kr</h2>
-            </div>
-        </div>
-      </div>
+    </div>
+      
+
       `;
 
       shoppingCart.append(cartCard);
@@ -191,7 +186,6 @@ $(document).ready(function() {
     localStorage.cartList = "";
     cartList = [];
     drawCart();
-    totalAmount();
 
     // Nollställer alla inputs för antal produkter
     let inputArr = $.makeArray($(".qtyInput"));
@@ -238,7 +232,6 @@ $(document).ready(function() {
 
         product.totalPrice = product.unitPrice * product.qty;
 
-        totalAmount();
         updateLocalStorage();
         drawCart();
       }

@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/css/uikit.min.css"
     />
+    <link rel="stylesheet" href="style.css" />
     <script
       src="https://kit.fontawesome.com/e939cd9756.js"
       crossorigin="anonymous"
@@ -21,43 +22,22 @@
   </head>
   <body>
     <header>
-      <nav class="uk-navbar-container uk-margin" uk-navbar>
-        <div class="uk-navbar-center">
-          <div class="uk-navbar-center-left">
-            <div>
-              <ul class="uk-navbar-nav">
-                <li class="uk-active"><a href="#">Active</a></li>
-                <li>
-                  <a href="#">Parent</a>
-                  <div class="uk-navbar-dropdown">
-                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                      <li class="uk-active"><a href="#">Active</a></li>
-                      <li><a href="#">Item</a></li>
-                      <li><a href="#">Item</a></li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
+      <div
+        uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
+      >
+        <nav class="uk-navbar-container" uk-navbar>
+          <div class="uk-navbar-left">
+            <a href="#"><img class="logo" src="logo.svg" alt="Logo"/></a>
+            <ul class="uk-navbar-nav">
+              <li class="uk-active"><a href="./index.html">Shop</a></li>
+              <li>
+                <a href="#">Contact</a>
+              </li>
+              <li><a href="#">About Us</a></li>
+            </ul>
           </div>
-          <a class="uk-navbar-item uk-logo" href="#">Logo</a>
-          <div class="uk-navbar-center-right">
-            <div>
-              <ul class="uk-navbar-nav">
-                <i class="fas fa-shopping-cart"></i>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <!-- <i></i>
-  
-        <ul>
-          <li>Hem</li>
-          <li>Kontakt</li>
-          <li></li>
-        </ul>
-        <i class="fas fa-shopping-cart"></i> -->
+        </nav>
+      </div>
     </header>
 
     <table class="uk-table uk-table-divider">
@@ -79,6 +59,9 @@
 
     <footer>
       <p>JSON-fil: <a href="products.json">products.json</a></p>
+      <a href="https://www.vecteezy.com/free-vector/mountain"
+        >Mountain Vectors by Vecteezy</a
+      >
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit.min.js"></script>

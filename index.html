@@ -5,53 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/css/uikit.min.css"
-    />
+    /> -->
     <script
       src="https://kit.fontawesome.com/e939cd9756.js"
       crossorigin="anonymous"
     ></script>
+    <link rel="stylesheet" href="./styles/main.css" type="text/css" />
     <link rel="stylesheet" href="style.css" type="text/css" />
   </head>
   <body>
     <header>
-      <nav class="uk-navbar-container" uk-navbar>
-        <div class="uk-navbar-left">
-          <a href="#"><img class="logo" src="logo.svg" alt="Logo"/></a>
-          <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="#">Active</a></li>
-            <li>
-              <a href="#">Parent</a>
-              <div class="uk-navbar-dropdown">
-                <ul class="uk-nav uk-navbar-dropdown-nav">
-                  <li class="uk-active"><a href="#">Active</a></li>
-                  <li><a href="#">Item</a></li>
-                  <li class="uk-nav-header">Header</li>
-                  <li><a href="#">Item</a></li>
-                  <li><a href="#">Item</a></li>
-                  <li class="uk-nav-divider"></li>
-                  <li><a href="#">Item</a></li>
-                </ul>
-              </div>
-            </li>
-            <li><a href="#">Item</a></li>
-          </ul>
+      <div
+        uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
+      >
+        <nav class="uk-navbar-container" uk-navbar>
+          <div class="uk-navbar-left">
+            <a href="#"><img class="logo" src="logo.svg" alt="Logo"/></a>
+            <ul class="uk-navbar-nav">
+              <li class="uk-active"><a href="./index.html">Shop</a></li>
+              <li>
+                <a href="#">Contact</a>
+              </li>
+              <li><a href="#">About Us</a></li>
+            </ul>
+          </div>
+          <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav">
+              <li>
+                <a
+                  href=""
+                  uk-toggle="target: #offcanvas-flip"
+                  uk-icon="icon: cart; ratio: 1.5"
+                ></a>
+                <span class="cart-counter"></span>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div
+        class="banner"
+        style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://source.unsplash.com/MhLjFJi3fRY);"
+      >
+        <div class="container">
+          <h1>Moonlight Crystals</h1>
+          <p>
+            We offers a wide choice of healing crystals which are ethically
+            sourced from mining families world wide.
+          </p>
+          <button class="uk-button uk-button-default addBtn">Read more</button>
         </div>
-        <div class="uk-navbar-right">
-          <ul class="uk-navbar-nav">
-            <li>
-              <a
-                href=""
-                uk-toggle="target: #offcanvas-flip"
-                uk-icon="icon: cart"
-              ></a>
-              <span class="cart-counter"></span>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      </div>
     </header>
 
     <div class="uk-container uk-container-large">
@@ -66,7 +73,7 @@
       <div class="uk-offcanvas-bar">
         <button class="uk-offcanvas-close" type="button" uk-close></button>
 
-        <h3>Title</h3>
+        <h3>Shopping Cart</h3>
 
         <div id="shoppingCart"></div>
         <span id="totalAmount"></span>
@@ -82,6 +89,9 @@
 
     <footer>
       <p>JSON-fil: <a href="products.json">products.json</a></p>
+      <a href="https://www.vecteezy.com/free-vector/mountain"
+        >Mountain Vectors by Vecteezy</a
+      >
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit.min.js"></script>
