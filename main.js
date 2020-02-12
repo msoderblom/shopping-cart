@@ -140,20 +140,13 @@ $(document).ready(function() {
   }
 
   function checkDuplicate(productId) {
-    console.log(cartList);
-    console.log(productId);
-
     const foundProduct = cartList.find(p => {
       return p.id === Number(productId);
     });
-    console.log(foundProduct);
 
     if (foundProduct) {
-      console.log("duplicate= " + true);
-
       return true;
     } else {
-      console.log("duplicate= " + false);
       return false;
     }
   }
@@ -191,6 +184,5 @@ $(document).ready(function() {
         $(this).text(counts);
       }
     );
-    console.log("cart count: " + counts);
   }
 });
