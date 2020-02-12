@@ -60,11 +60,7 @@ $(document).ready(function() {
     let qtyInput = $(`[data-inputid= '${productId}']`)[0];
     let qty = parseInt(qtyInput.value);
 
-    // console.log(qtyInput.dataset.inputid);
-    console.log("värdet från input: " + qtyInput.value);
-
     if (!checkDuplicate(productId)) {
-      console.log("Finns inte redan");
       const productToAdd = productList.find(p => p.id === Number(productId));
       productToAdd.qty = qty;
       productToAdd.totalPrice = productToAdd.unitPrice * productToAdd.qty;
@@ -74,7 +70,6 @@ $(document).ready(function() {
       drawCart();
       updateLocalStorage();
     } else {
-      console.log("finns redan");
       UIkit.notification(
         "<span ></span> This product is already in your cart. Please change the quantity in the cart."
       );
