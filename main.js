@@ -70,9 +70,11 @@ $(document).ready(function() {
       drawCart();
       updateLocalStorage();
     } else {
-      UIkit.notification(
-        "<span ></span> This product is already in your cart. Please change the quantity in the cart."
-      );
+      UIkit.notification({
+        message:
+          "<span uk-icon='icon: warning'></span> This product is already in your cart. Please change the quantity in the cart.",
+        status: "danger"
+      });
     }
   }
   function removeFromCart(event) {
