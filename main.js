@@ -6,9 +6,9 @@ $(document).ready(function() {
 
   $("#emptyCartBtn").click(emptyCart);
 
+  //hämtar data från local storage om det finns någon
   const cartListText = localStorage.getItem("cartList");
 
-  //funktion som hämtar data från local storage om det finns någon
   if (cartListText) {
     cartList = JSON.parse(cartListText);
     drawCart();
@@ -167,7 +167,7 @@ $(document).ready(function() {
     });
   }
 
-  function cartCounter(params) {
+  function cartCounter() {
     let counts = 0;
 
     cartList.forEach(product => {
